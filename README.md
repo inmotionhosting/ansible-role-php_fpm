@@ -1,4 +1,4 @@
-inmotion.ultrastack_php
+inmotion.php-fpm
 =========
 
 Modular Ansible Role for deploying and configuring PHP-FPM
@@ -40,7 +40,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - role: inmotion.php
+         - role: inmotion.php-fpm
 
 License
 -------

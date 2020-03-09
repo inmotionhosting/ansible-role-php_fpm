@@ -1,0 +1,26 @@
+# {{ template_destpath }}
+# {{ ansible_managed  }}
+
+AddType text/html .php
+DirectoryIndex index.php
+
+<Files ".user.ini">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </IfModule>
+</Files>
+
+<IfModule mod_php7.c>
+    <FilesMatch \.(php|phar)$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+
+    php_value session.save_handler "{{ php_conf_session_save_handler }}"
+    php_value session.save_path    "{{ php_conf_session_save_path }}"
+    php_value soap.wsdl_cache_dir  "{{ php_conf_soap_wsdl_cache_dir }}"
+</IfModule>

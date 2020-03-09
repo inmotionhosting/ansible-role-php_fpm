@@ -1,0 +1,39 @@
+---
+- name: (Ubuntu) Update APT cache
+  apt:
+    force_apt_get: true
+    update_cache: true
+    cache_valid_time: "3600"
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: (Debian) Install PHP Dependencies
+  package:
+    name: "{{ php_packages }}"
+    state: present
+
+- name: (Debian) Gather package facts
+  package_facts:
+    manager: apt
+    strategy: first
+
+- name: (Debian) Set and sanitize PHP version facts
+  set_fact:
+    php_version: >-
+      {{ ansible_facts.packages['php'][0].version
+      | regex_replace('^.*:', '')
+      | regex_replace('\+.*$', '') }}
+    php_version_flat: '{{ php_version | replace(".", "") }}'
+
+- name: (Debian) Set and sanitize PHP facts
+  set_fact:
+    php_config_ini_path: /etc/php/{{ php_version }}/fpm/php.ini
+    php_config_path: /etc/php/{{ php_version }}/apache2/conf.d
+    php_config_site_path: /etc/php/{{ php_version }}/apache2/sites-enabled
+
+    php_fpm_config_path: /etc/php/{{ php_version }}/fpm/conf.d
+    php_fpm_config_pool_path: /etc/php/{{ php_version }}/fpm/pool.d
+    php_fpm_daemon: php{{ php_version }}-fpm
+    php_fpm_site_errorlog: /var/log/php{{ php_version }}-fpm-{{ system_user }}-error.log
+    php_fpm_slowlog: /var/log/php{{ php_version }}-fpm-slow.log
+    php_fpm_socket_path: /var/run/php/{{ system_user }}.sock

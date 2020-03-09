@@ -1,0 +1,31 @@
+---
+php_packages:
+  # - php-fileinfo
+  # - php-mcrypt
+  # - php-pdo_mysql
+  # - php-process
+  - imagemagick
+  - libmcrypt-dev
+  - php
+  - php-bcmath
+  - php-cli
+  - php-curl
+  - php-dba
+  - php-dev
+  - php-enchant
+  - php-fpm
+  - php-gd
+  - php-gmp
+  - php-imagick
+  - php-intl
+  - php-ldap
+  - php-mbstring
+  - php-mysqlnd
+  - php-opcache
+  - php-pear
+  - php-pspell
+  - php-redis
+  - php-soap
+  - php-tidy
+  - php-xml
+  - php-zip

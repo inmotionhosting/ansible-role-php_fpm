@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    system_user: example
+  roles:
+    - role: inmotion.php-fpm

@@ -1,0 +1,32 @@
+---
+- name: (RedHat) Install Remi repo
+  package:
+    name: "https://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
+    state: present
+
+- name: (RedHat 8) Enable Remi repo
+  when: ansible_distribution_major_version == '8'
+  dnf:
+    name: "@php:remi-{{ php_version }}"
+    state: present
+
+- name: (RedHat) Install PHP Dependencies
+  package:
+    name: "{{ php_packages }}"
+    enablerepo: "remi-php{{ php_version_flat }}"
+    state: present
+
+- name: (RedHat) Gather package facts
+  package_facts:
+    manager: auto
+
+- name: (RedHat) Set and sanitize PHP version
+  set_fact:
+    php_version: >-
+      {{ tmp_php_version_major + '.' + tmp_php_version_minor }}
+    php_version_flat: '{{ php_version | replace(".", "") }}'
+  vars:
+    tmp_php_version: "{{ ansible_facts.packages['php'][0].version }}"
+    tmp_php_version_major: "{{ tmp_php_version.split('.')[0] }}"
+    tmp_php_version_minor: "{{ tmp_php_version.split('.')[1] }}"
+  when: ansible_os_family == "RedHat"

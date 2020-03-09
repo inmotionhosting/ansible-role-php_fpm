@@ -1,0 +1,79 @@
+---
+# inmotion.php/defaults/main.yml
+
+php_version: "7.3"
+php_version_flat: '{{ php_version | replace(".", "") }}'
+
+php_config_ini_path: /etc/php.ini
+php_config_path: /etc/php.d
+php_config_site_path: "{{ php_config_path }}"
+
+php_fpm_config_path: /etc/php-fpm.d
+php_fpm_config_pool_path: "{{ php_fpm_config_path }}"
+php_fpm_daemon: php-fpm
+php_fpm_site_errorlog: /var/log/php-fpm/{{ system_user }}-error.log
+php_fpm_slowlog: /var/log/php-fpm/{{ system_user }}-slow.log
+php_fpm_socket_path: /var/run/php-fpm/{{ system_user }}.sock
+
+php_packages:
+  - ImageMagick
+  - php
+  - php-bcmath
+  - php-cli
+  - php-curl
+  - php-dba
+  - php-enchant
+  - php-fileinfo
+  - php-fpm
+  - php-gd
+  - php-gmp
+  - php-intl
+  - php-ldap
+  - php-mbstring
+  - php-mcrypt
+  - php-mysqlnd
+  - php-opcache
+  - php-pdo_mysql
+  - php-pecl-imagick
+  - php-pecl-redis5
+  - php-pecl-zip
+  - php-process
+  - php-pspell
+  - php-soap
+  - php-tidy
+  - php-xml
+  - php-zip
+
+#
+# php.conf
+#
+
+php_conf_session_save_handler: files
+php_conf_session_save_path: /var/lib/php/session
+php_conf_soap_wsdl_cache_dir: /var/lib/php/wsdlcache
+
+#
+# php.ini
+#
+
+php_ini_allow_url_fopen: true
+php_ini_max_execution_time: 60
+php_ini_max_input_vars: 6200
+php_ini_memory_limit: 512M
+php_ini_post_max_size: 128M
+php_ini_upload_max_filesize: 128M
+php_ini_user_ini_cache_ttl: 180
+php_ini_user_ini_filename: php.ini
+php_ini_opcache_enable: true
+php_ini_opcache_enable_cli: false
+php_ini_opcache_force_restart_timeout: 5
+php_ini_opcache_interned_strings_buffer: 16
+php_ini_opcache_log_verbosity_level: 0
+php_ini_opcache_max_accelerated_files: 16536
+php_ini_opcache_memory_consumption: 512
+php_ini_opcache_revalidate_freq: 90
+php_ini_opcache_validate_permission: true
+php_ini_opcache_validate_root: true
+php_ini_opcache_validate_timestamps: true
+php_ini_zlib_output_compression: false
+php_ini_zlib_output_compression_level: 9

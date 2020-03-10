@@ -15,7 +15,6 @@
 - name: (Debian) Gather package facts
   package_facts:
     manager: apt
-    strategy: first
 
 - name: (Debian) Set and sanitize PHP version facts
   set_fact:

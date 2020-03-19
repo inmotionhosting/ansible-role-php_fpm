@@ -4,4 +4,4 @@
   vars:
     system_user: example
   roles:
-    - role: inmotion.php-fpm
+    - role: inmotionhosting.php_fpm

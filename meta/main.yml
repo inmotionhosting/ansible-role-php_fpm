@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: php_fpm
   author: inmotionhosting
   description: Modular Ansible Role for deploying and configuring PHP-FPM
   company: InMotion Hosting

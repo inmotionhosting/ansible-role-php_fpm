@@ -3,7 +3,7 @@ inmotionhosting.php_fpm
 
 Modular Ansible Role for deploying and configuring PHP-FPM
 
-[![Build Status](https://travis-ci.org/inmotionhosting/php_fpm.png?branch=master)](https://travis-ci.org/inmotionhosting/php_fpm)
+[![Build Status](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm.png?branch=master)](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm)
 
 Requirements
 ------------

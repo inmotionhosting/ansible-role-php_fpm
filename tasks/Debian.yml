@@ -24,7 +24,6 @@
       | regex_replace('\+.*$', '') }}
     php_version_flat: '{{ php_version | replace(".", "") }}'
   when:
-    - ansible_distribution == "Debian"
     - ansible_distribution_major_version != "8"
 
 - name: (Debian 8) Set PHP version facts

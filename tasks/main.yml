@@ -12,6 +12,13 @@
       - RedHat
   when: ansible_os_family in targets
 
+- name: (PHP-FPM) Ensure directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /var/run/php
+
 - name: (PHP-FPM) Configure php.ini
   template:
     src: etc/php.ini.j2

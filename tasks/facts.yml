@@ -3,6 +3,13 @@
   include_vars: "{{ ansible_os_family }}.yml"
   when: ansible_os_family == "Debian"
 
+- name: (PHP-FPM) Include Debian vars
+  include_vars: >-
+    {{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml
+  when:
+    - ansible_distribution == "Debian"
+    - ansible_distribution_major_version == "8"
+
 - name: (PHP-FPM) Set PHP facts
   set_fact:
     php_config_ini_path: >-

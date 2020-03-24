@@ -4,4 +4,4 @@
   vars:
     system_user: example
   roles:
-    - role: inmotionhosting.php_fpm
+    - role: ansible-role-php_fpm

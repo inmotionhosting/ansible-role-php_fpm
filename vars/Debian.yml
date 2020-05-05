@@ -1,9 +1,5 @@
 ---
 php_packages:
-  # - php-fileinfo
-  # - php-mcrypt
-  # - php-pdo_mysql
-  # - php-process
   - imagemagick
   - libmcrypt-dev
   - php

@@ -23,16 +23,6 @@
       | regex_replace('^.*:', '')
       | regex_replace('\+.*$', '') }}
     php_version_flat: '{{ php_version | replace(".", "") }}'
-  when:
-    - ansible_distribution_major_version != "8"
-
-- name: (Debian 8) Set PHP version facts
-  set_fact:
-    php_version: "5"
-    php_version_flat: "{{ php_version }}"
-  when:
-    - ansible_distribution == "Debian"
-    - ansible_distribution_major_version == "8"
 
 - name: (Debian) Set and sanitize PHP facts
   set_fact:
@@ -46,15 +36,3 @@
     php_fpm_site_errorlog: /var/log/php{{ php_version }}-fpm-{{ system_user }}-error.log
     php_fpm_slowlog: /var/log/php{{ php_version }}-fpm-slow.log
     php_fpm_socket_path: /var/run/php/{{ system_user }}.sock
-
-- name: (Debian 8) Set and sanitize PHP facts
-  set_fact:
-    php_config_ini_path: /etc/php5/fpm/php.ini
-    php_config_path: /etc/php5/apache2/conf.d
-    php_config_site_path: /etc/php5/apache2/sites-enabled
-
-    php_fpm_config_path: /etc/php5/fpm/conf.d
-    php_fpm_config_pool_path: /etc/php5/fpm/pool.d
-  when:
-    - ansible_distribution == "Debian"
-    - ansible_distribution_major_version == "8"

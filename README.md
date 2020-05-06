@@ -9,7 +9,7 @@ Requirements
 ------------
 
 * CentOS 7.x or later
-* Debian 8 or later
+* Debian 9 or later
 * Ubuntu 16.04 LTS or later
 
 Role Variables
@@ -28,7 +28,7 @@ Role Variables
 | php_fpm_socket_path | Default: `/var/run/php-fpm/{{ system_user }}.sock`
 | php_packages | The list of PHP packages to install.
 | php_version | The discovered PHP version.
-| php_version_flat | Default: `{{ php_version | replace(".", "") }}`
+| php_version_flat | Default: `{{ php_version \| replace(".", "") }}`
 
 ### php.conf
 | Variable | Description |

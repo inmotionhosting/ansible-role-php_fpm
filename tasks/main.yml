@@ -50,3 +50,6 @@
     name: "{{ php_fpm_daemon }}"
     state: started
     enabled: true
+
+- debug:
+    var: "{{ php_version }}"

@@ -1,6 +1,8 @@
 ---
 # inmotion.php/defaults/main.yml
 
+# Ubuntu ships with PHP 7.4 and 7.4 is preferred. All other distros will use the
+# version specified here if possible.
 php_version: "7.3"
 php_version_flat: '{{ php_version | replace(".", "") }}'
 

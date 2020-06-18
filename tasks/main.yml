@@ -51,9 +51,9 @@
     state: started
     enabled: true
 
-#- name: Get PHP version
-#  command: php -v
-#  register: php_version_out
+- name: Get PHP version
+  command: php -v
+  register: php_version_out
 
-#- debug:
-#    var: "{{ php_version_out }}"
+- debug:
+    var: php_version_out

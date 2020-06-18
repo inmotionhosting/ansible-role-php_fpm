@@ -3,7 +3,7 @@
   apt:
     name: apt-transport-https
     state: present
-    update_cache: false
+    update_cache: true
   when:
     - ansible_distribution == 'Debian'
     - ansible_distribution_major_version == '9'
@@ -12,7 +12,7 @@
   apt:
     name: software-properties-common
     state: present
-    update_cache: false
+    update_cache: true
   when:
     - ansible_distribution == 'Ubuntu'
     - ansible_distribution_version == '18.04'

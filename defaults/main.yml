@@ -39,6 +39,7 @@ php_packages:
   - php-pecl-imagick
   - php-pecl-redis5
   - php-pecl-zip
+  - php-pgsql
   - php-process
   - php-pspell
   - php-soap

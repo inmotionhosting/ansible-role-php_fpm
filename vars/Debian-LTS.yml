@@ -18,6 +18,7 @@ php_packages:
   - php{{ php_version }}-mbstring
   - php{{ php_version }}-mysqlnd
   - php{{ php_version }}-opcache
+  - php{{ php_version }}-pgsql
   - php{{ php_version }}-pspell
   - php{{ php_version }}-redis
   - php{{ php_version }}-soap

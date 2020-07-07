@@ -19,6 +19,7 @@ php_packages:
   - php-mysqlnd
   - php-opcache
   - php-pear
+  - php-pgsql
   - php-pspell
   - php-redis
   - php-soap

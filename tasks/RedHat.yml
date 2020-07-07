@@ -5,10 +5,10 @@
     state: present
 
 - name: (RedHat 8) Enable Remi repo
-  when: ansible_distribution_major_version == '8'
   dnf:
     name: "@php:remi-{{ php_version }}"
     state: present
+  when: ansible_distribution_major_version == '8'
 
 - name: (RedHat) Install PHP Dependencies
   package:

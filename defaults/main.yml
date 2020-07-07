@@ -1,6 +1,8 @@
 ---
 # inmotion.php/defaults/main.yml
 
+# Ubuntu ships with PHP 7.4. All other distros will
+# use the version specified here if possible.
 php_version: "7.3"
 php_version_flat: '{{ php_version | replace(".", "") }}'
 
@@ -37,6 +39,7 @@ php_packages:
   - php-pecl-imagick
   - php-pecl-redis5
   - php-pecl-zip
+  - php-pgsql
   - php-process
   - php-pspell
   - php-soap

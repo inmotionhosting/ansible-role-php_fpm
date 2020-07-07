@@ -1,7 +1,16 @@
 ---
 - name: (PHP-FPM) Include Debian vars
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "Debian.yml"
   when: ansible_os_family == "Debian"
+
+- name: (PHP-FPM) Include LTS vars
+  include_vars: "Debian-LTS.yml"
+  when: >-
+    (ansible_distribution == 'Debian' and
+    ansible_distribution_major_version == '9') or
+    (ansible_distribution == 'Ubuntu' and
+    (ansible_distribution_version == '16.04' or
+    ansible_distribution_version == '18.04'))
 
 - name: (PHP-FPM) Set and sanitize PHP facts
   set_fact:

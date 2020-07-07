@@ -1,14 +1,59 @@
 ---
-- name: (Ubuntu) Update APT cache
+- name: (Debian 9) Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: true
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_major_version == '9'
+
+- name: (Ubuntu 18.04) Install add-apt-repository
+  apt:
+    name: software-properties-common
+    state: present
+    update_cache: true
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '18.04'
+
+- name: (Debian 9) Add signing key
+  get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /etc/apt/trusted.gpg.d/php.gpg
+    mode: '0644'
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_major_version == '9'
+
+- name: (Debian 9) Add PHP repo
+  apt_repository:
+    repo: "deb https://packages.sury.org/php/ stretch main"
+    state: present
+    filename: "stretch"
+    update_cache: true
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_major_version == '9'
+
+- name: (Ubuntu 16.04/18.04) Add PHP repo
+  apt_repository:
+    repo: ppa:ondrej/php
+    update_cache: true
+  when: >-
+    ansible_distribution == 'Ubuntu' and
+    (ansible_distribution_version == '16.04' or
+    ansible_distribution_version == '18.04')
+
+- name: (Debian) Update APT cache
   apt:
     force_apt_get: true
     update_cache: true
     cache_valid_time: "3600"
     state: present
-  when: ansible_distribution == "Ubuntu"
 
 - name: (Debian) Install PHP Dependencies
-  package:
+  apt:
     name: "{{ php_packages }}"
     state: present
 
@@ -16,13 +61,16 @@
   package_facts:
     manager: apt
 
-- name: (Debian) Set and sanitize PHP version facts
+- name: (Ubuntu 20.04) Set and sanitize PHP version facts
   set_fact:
     php_version: >-
       {{ ansible_facts.packages['php'][0].version
       | regex_replace('^.*:', '')
       | regex_replace('\+.*$', '') }}
     php_version_flat: '{{ php_version | replace(".", "") }}'
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_version == '20.04'
 
 - name: (Debian) Set and sanitize PHP facts
   set_fact:

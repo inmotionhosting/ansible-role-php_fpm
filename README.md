@@ -1,19 +1,22 @@
-inmotionhosting.php_fpm
-=========
+[![Build Status](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm.png?branch=master)](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm) [![GPL-3.0 License](https://img.shields.io/github/license/inmotionhosting/ansible-role-php_fpm.svg?color=blue)](https://github.com/inmotionhosting/ansible-role-php_fpm/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/inmotionhosting/ansible-role-php_fpm.svg)](https://github.com/inmotionhosting/ansible-role-php_fpm/stargazers)
+
+# Ansible Role: PHP-FPM
 
 Modular Ansible Role for deploying and configuring PHP-FPM
 
-[![Build Status](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm.png?branch=master)](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm)
-
-Requirements
-------------
+## Requirements
 
 * CentOS 7.x or later
 * Debian 9 or later
 * Ubuntu 16.04 LTS or later
 
-Role Variables
---------------
+## Dependencies
+
+None.
+
+## Role Variables
+
+Available variables are listed below with their default values (you can also see `defaults/main.yml`)
 
 | Variable | Description |
 | -------- | ----------- |
@@ -62,24 +65,18 @@ Role Variables
 | php_ini_zlib_output_compression | Default: `false`
 | php_ini_zlib_output_compression_level | Default: `9`
 
-Dependencies
-------------
+## Example Playbook
 
-None.
+```yaml
+- hosts: www
+  roles:
+     - role: inmotionhosting.php_fpm
+```
 
-Example Playbook
-----------------
-
-    - hosts: www
-      roles:
-         - role: inmotionhosting.php_fpm
-
-License
--------
+## License
 
 GPLv3
 
-Author Information
-------------------
+## Author Information
 
 [InMotion Hosting](https://inmotionhosting.com)

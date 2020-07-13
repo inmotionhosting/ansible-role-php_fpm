@@ -21,7 +21,7 @@
   get_url:
     url: https://packages.sury.org/php/apt.gpg
     dest: /etc/apt/trusted.gpg.d/php.gpg
-    mode: '0644'
+    mode: "0644"
   when:
     - ansible_distribution == 'Debian'
     - ansible_distribution_major_version == '9'
@@ -39,6 +39,7 @@
 - name: (Ubuntu 16.04/18.04) Add PHP repo
   apt_repository:
     repo: ppa:ondrej/php
+    state: present
     update_cache: true
   when: >-
     ansible_distribution == 'Ubuntu' and

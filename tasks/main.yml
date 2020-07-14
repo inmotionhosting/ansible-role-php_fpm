@@ -1,10 +1,10 @@
 ---
 # tasks file for inmotion.ultrastack_php
 
-- name: (PHP-FPM) Set and santitize facts
+- name: Set and santitize facts
   include: facts.yml
 
-- name: (PHP-FPM) Include os_family tasks
+- name: Include os_family tasks
   include: "{{ ansible_os_family }}.yml"
   vars:
     targets:
@@ -12,14 +12,14 @@
       - RedHat
   when: ansible_os_family in targets
 
-- name: (PHP-FPM) Ensure directories exist
+- name: Ensure directories exist
   file:
     path: "{{ item }}"
     state: directory
   with_items:
     - /var/run/php
 
-- name: (PHP-FPM) Configure php.ini
+- name: Configure php.ini
   template:
     src: etc/php.ini.j2
     dest: "{{ php_config_ini_path }}"
@@ -29,12 +29,12 @@
   notify:
     - restart php-fpm
 
-- name: (PHP-FPM) Check if Apache dirs are present
+- name: Check if Apache dirs are present
   stat:
     path: "{{ apache_config_path }}"
   register: apache
 
-- name: (PHP-FPM) Configure Apache PHP settings
+- name: Configure Apache PHP settings
   template:
     src: etc/httpd/conf.d/php.conf.j2
     dest: "{{ apache_config_path }}/php.conf"
@@ -45,7 +45,7 @@
     - restart php-fpm
   when: apache.stat.exists
 
-- name: (PHP-FPM) Start and enable php-fpm service
+- name: Start and enable php-fpm service
   service:
     name: "{{ php_fpm_daemon }}"
     state: started

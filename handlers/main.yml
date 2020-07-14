@@ -1,5 +1,4 @@
----
-# handlers file for inmotion.ultrastack_php
+# handlers/main.yml
 
 - name: restart php-fpm
   service:

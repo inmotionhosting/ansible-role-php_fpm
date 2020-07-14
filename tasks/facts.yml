@@ -1,9 +1,9 @@
 ---
-- name: (PHP-FPM) Include Debian vars
+- name: Include Debian vars
   include_vars: "Debian.yml"
   when: ansible_os_family == "Debian"
 
-- name: (PHP-FPM) Include LTS vars
+- name: Include LTS vars
   include_vars: "Debian-LTS.yml"
   when: >-
     (ansible_distribution == 'Debian' and
@@ -12,7 +12,7 @@
     (ansible_distribution_version == '16.04' or
     ansible_distribution_version == '18.04'))
 
-- name: (PHP-FPM) Set and sanitize PHP facts
+- name: Set and sanitize PHP facts
   set_fact:
     php_config_ini_path: >-
       {{ php_config_ini_path
@@ -201,14 +201,14 @@
       and php_ini_user_ini_cache_ttl <= 9
       else 9 }}
 
-- name: (PHP-FPM) Set and sanitize dependent RedHat vars
+- name: Set and sanitize dependent RedHat vars
   set_fact:
     apache_config_path: /etc/httpd/conf.d
   when:
     - ansible_os_family == "RedHat"
     - apache_config_path is undefined
 
-- name: (PHP-FPM) Set and sanitize dependent Debian vars
+- name: Set and sanitize dependent Debian vars
   set_fact:
     apache_config_path: /etc/apache2/conf-enabled
   when:

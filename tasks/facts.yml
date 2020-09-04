@@ -214,3 +214,19 @@
   when:
     - ansible_os_family == "Debian"
     - apache_config_path is undefined
+
+- name: Check variable 'systemd_restart_setting'
+  fail:
+    msg: |
+      Invalid value for variable 'systemd_restart_setting': '{{ systemd_restart_setting }}'
+
+      'systemd_restart_setting' must be one of the following:
+      no, on-success, on-failure, on-abnormal, on-watchdog, on-abort, always.
+  failed_when: >-
+    (systemd_restart_setting not in
+    ['no', 'on-success', 'on-failure', 'on-abnormal',
+    'on-watchdog', 'on-abort', 'always']
+    or systemd_restart_setting is not string
+    or systemd_restart_setting == 0)
+    and (php_systemd_restart
+    or systemd_restart)

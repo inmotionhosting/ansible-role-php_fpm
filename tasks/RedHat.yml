@@ -1,4 +1,10 @@
 ---
+- name: (CentOS) Install epel-release packages
+  package:
+    name: epel-release
+    state: present
+  when: ansible_distribution_major_version == '8'
+
 - name: (RedHat) Install Remi repo
   package:
     name: "https://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"

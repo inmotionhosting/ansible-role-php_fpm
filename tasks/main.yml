@@ -45,6 +45,13 @@
     - restart php-fpm
   when: apache.stat.exists
 
+- name: Include systemd restart configuation
+  include: systemd.yml
+  when:  >-
+    ( php_systemd_restart|default(False)
+    or systemd_restart|default(False) )
+    and systemd_restart_setting is defined
+
 - name: Start and enable php-fpm service
   service:
     name: "{{ php_fpm_daemon }}"

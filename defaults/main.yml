@@ -17,6 +17,9 @@ php_fpm_site_errorlog: /var/log/php-fpm/{{ system_user }}-error.log
 php_fpm_slowlog: /var/log/php-fpm/{{ system_user }}-slow.log
 php_fpm_socket_path: /var/run/php-fpm/{{ system_user }}.sock
 
+php_systemd_restart: false
+systemd_restart_setting: on-failure
+
 php_packages:
   - ImageMagick
   - php

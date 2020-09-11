@@ -1,6 +1,7 @@
 # handlers/main.yml
 
 - name: restart php-fpm
-  service:
+  systemd:
+    daemon_reload: yes
     name: "{{ php_fpm_daemon }}"
     state: restarted

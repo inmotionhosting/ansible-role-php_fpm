@@ -20,31 +20,13 @@
       and php_config_ini_path is string
       and php_config_ini_path != 0
       else "/etc/php.ini" }}
-    php_config_path: >-
-      {{ php_config_path
-      if php_config_path is defined
-      and php_config_path is string
-      and php_config_path != 0
-      else "/etc/php.d" }}
-    php_config_site_path: >
-      {{ php_config_site_path
-      if php_config_site_path is defined
-      and php_config_site_path is string
-      and php_config_site_path != 0
-      else "{{ php_config_path }}" }}
 
-    php_fpm_config_path: >-
-      {{ php_fpm_config_path
-      if php_fpm_config_path is defined
-      and php_fpm_config_path is string
-      and php_fpm_config_path != 0
-      else "/etc/php-fpm.d" }}
     php_fpm_config_pool_path: >-
       {{ php_fpm_config_pool_path
       if php_fpm_config_pool_path is defined
       and php_fpm_config_pool_path is string
       and php_fpm_config_pool_path != 0
-      else php_fpm_config_path }}
+      else "/etc/php-fpm.d" }}
     php_fpm_daemon: >-
       {{ php_fpm_daemon
       if php_fpm_daemon is defined

@@ -14,10 +14,8 @@
 
 - name: Ensure directories exist
   file:
-    path: "{{ item }}"
+    path: /var/run/php
     state: directory
-  with_items:
-    - /var/run/php
 
 - name: Configure php.ini
   template:

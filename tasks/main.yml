@@ -14,10 +14,8 @@
 
 - name: Ensure directories exist
   file:
-    path: "{{ item }}"
+    path: /var/run/php
     state: directory
-  with_items:
-    - /var/run/php
 
 - name: Configure php.ini
   template:
@@ -26,8 +24,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify:
-    - restart php-fpm
+  notify: restart php-fpm
 
 - name: Check if Apache dirs are present
   stat:
@@ -41,13 +38,12 @@
     owner: root
     group: root
     mode: "0644"
-  notify:
-    - restart php-fpm
+  notify: restart php-fpm
   when: apache.stat.exists
 
 - name: Include systemd restart configuation
   include: systemd.yml
-  when:  >-
+  when: >-
     ( php_systemd_restart|default(False)
     or systemd_restart|default(False) )
     and systemd_restart_setting is defined

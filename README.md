@@ -21,10 +21,7 @@ Available variables are listed below with their default values (you can also see
 | Variable | Description |
 | -------- | ----------- |
 | php_config_ini_path | Default: `/etc/php.ini`
-| php_config_path | Default: `/etc/php.d`
-| php_config_site_path | Default: `{{ php_config_path }}`
-| php_fpm_config_path | Default: `/etc/php-fpm.d`
-| php_fpm_config_pool_path | Default: `{{ php_fpm_config_path }}`
+| php_fpm_config_pool_path | Default: `/etc/php-fpm.d`
 | php_fpm_daemon | Default: `php-fpm`
 | php_fpm_site_errorlog | Default: `/var/log/php-fpm/{{ system_user }}-error.log`
 | php_fpm_slowlog | Default: `/var/log/php-fpm/{{ system_user }}-slow.log`

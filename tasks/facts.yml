@@ -12,194 +12,70 @@
     (ansible_distribution_version == '16.04' or
     ansible_distribution_version == '18.04'))
 
-- name: Set and sanitize PHP facts
+- name: Set lists of required variables
   set_fact:
-    php_config_ini_path: >-
-      {{ php_config_ini_path
-      if php_config_ini_path is defined
-      and php_config_ini_path is string
-      and php_config_ini_path != 0
-      else "/etc/php.ini" }}
-    php_config_path: >-
-      {{ php_config_path
-      if php_config_path is defined
-      and php_config_path is string
-      and php_config_path != 0
-      else "/etc/php.d" }}
-    php_config_site_path: >
-      {{ php_config_site_path
-      if php_config_site_path is defined
-      and php_config_site_path is string
-      and php_config_site_path != 0
-      else "{{ php_config_path }}" }}
+    php_required_strings:
+      - php_version
+      - php_version_flat
+      - php_config_ini_path
+      - php_fpm_daemon
+      - php_ini_memory_limit
+      - php_ini_post_max_size
+      - php_ini_upload_max_filesize
+      - php_ini_user_ini_filename
+      - php_conf_session_save_handler
+      - php_conf_session_save_path
+      - php_conf_soap_wsdl_cache_dir
+      - php_fpm_config_pool_path
+      - php_fpm_socket_path
+      - php_fpm_site_errorlog
+      - php_fpm_slowlog
+    php_required_ints:
+      - php_ini_max_execution_time
+      - php_ini_max_input_vars
+      - php_ini_user_ini_cache_ttl
+      - php_ini_opcache_force_restart_timeout
+      - php_ini_opcache_interned_strings_buffer
+      - php_ini_opcache_log_verbosity_level
+      - php_ini_opcache_max_accelerated_files
+      - php_ini_opcache_memory_consumption
+      - php_ini_opcache_revalidate_freq
+      - php_ini_zlib_output_compression_level
 
-    php_fpm_config_path: >-
-      {{ php_fpm_config_path
-      if php_fpm_config_path is defined
-      and php_fpm_config_path is string
-      and php_fpm_config_path != 0
-      else "/etc/php-fpm.d" }}
-    php_fpm_config_pool_path: >-
-      {{ php_fpm_config_pool_path
-      if php_fpm_config_pool_path is defined
-      and php_fpm_config_pool_path is string
-      and php_fpm_config_pool_path != 0
-      else php_fpm_config_path }}
-    php_fpm_daemon: >-
-      {{ php_fpm_daemon
-      if php_fpm_daemon is defined
-      and php_fpm_daemon is string
-      and php_fpm_daemon != 0
-      else "php-fpm" }}
-    php_fpm_slowlog: >-
-      {{ php_fpm_slowlog
-      if php_fpm_slowlog is defined
-      and php_fpm_slowlog is string
-      and php_fpm_slowlog != 0
-      else "/var/log/php-fpm/{{ system_user }}-slow.log" }}
-    php_fpm_socket_path: >-
-      {{ php_fpm_socket_path
-      if php_fpm_socket_path is defined
-      and php_fpm_socket_path is string
-      and php_fpm_socket_path != 0
-      else "/var/run/php-fpm/{{ system_user }}.sock" }}
+- name: Check required PHP variables (strings)
+  fail:
+    msg: |
+      Invalid value for variable for '{{ item }}': {{ lookup('vars', item) }}
 
-    php_conf_session_save_handler: >-
-      {{ php_conf_session_save_handler
-      if php_conf_session_save_handler is defined
-      and php_conf_session_save_handler is string
-      else "files" }}
-    php_conf_session_save_path: >-
-      {{ php_conf_session_save_path
-      if php_conf_session_save_path is defined
-      and php_conf_session_save_path is string
-      else "/var/lib/php/session" }}
-    php_conf_soap_wsdl_cache_dir: >-
-      {{ php_conf_soap_wsdl_cache_dir
-      if php_conf_soap_wsdl_cache_dir is defined
-      and php_conf_soap_wsdl_cache_dir is string
-      else "/var/lib/php/wsdlcache" }}
+      Supported types  : String
+      Supported values : Any non-null string
+  when: >-
+    lookup('vars', item) is not string
+    or lookup('vars', item) == 0
+  with_items: "{{ php_required_strings }}"
 
-    php_ini_allow_url_fopen: >-
-      {{ "On"
-      if php_ini_allow_url_fopen is defined
-      and php_ini_allow_url_fopen
-      else "Off" }}
-    php_ini_max_execution_time: >-
-      {{ php_ini_max_execution_time
-      if php_ini_max_execution_time is defined
-      and php_ini_max_execution_time is number
-      and php_ini_max_execution_time > 0
-      else 60 }}
-    php_ini_max_input_vars: >-
-      {{ php_ini_max_input_vars
-      if php_ini_max_input_vars is defined
-      and php_ini_max_input_vars is number
-      and php_ini_max_input_vars > 0
-      else 6200 }}
-    php_ini_memory_limit: >-
-      {{ php_ini_memory_limit
-      if php_ini_memory_limit is defined
-      and php_ini_memory_limit is string
-      and php_ini_memory_limit != 0
-      else "512M" }}
-    php_ini_post_max_size: >-
-      {{ php_ini_memory_limit
-      if php_ini_memory_limit is defined
-      and php_ini_memory_limit is string
-      and php_ini_memory_limit != 0
-      else "128M" }}
-    php_ini_upload_max_filesize: >-
-      {{ php_ini_upload_max_filesize
-      if php_ini_upload_max_filesize is defined
-      and php_ini_upload_max_filesize is string
-      and php_ini_upload_max_filesize != 0
-      else "128M" }}
-    php_ini_user_ini_cache_ttl: >-
-      {{ php_ini_user_ini_cache_ttl
-      if php_ini_user_ini_cache_ttl is defined
-      and php_ini_user_ini_cache_ttl is number
-      and php_ini_user_ini_cache_ttl > 0
-      else 180 }}
-    php_ini_user_ini_filename: >-
-      {{ php_ini_user_ini_filename
-      if php_ini_user_ini_filename is defined
-      and php_ini_user_ini_filename is string
-      and php_ini_user_ini_filename != 0
-      else "php.ini" }}
-    php_ini_opcache_enable: >-
-      {{ 1
-      if php_ini_opcache_enable is defined
-      and php_ini_user_ini_cache_ttl
-      else 0 }}
-    php_ini_opcache_enable_cli: >-
-      {{ 1
-      if php_ini_opcache_enable_cli is defined
-      and php_ini_opcache_enable_cli
-      else 0 }}
-    php_ini_opcache_force_restart_timeout: >-
-      {{ php_ini_opcache_force_restart_timeout
-      if php_ini_opcache_force_restart_timeout is defined
-      and php_ini_opcache_force_restart_timeout is number
-      and php_ini_opcache_force_restart_timeout > 0
-      else 5 }}
-    php_ini_opcache_interned_strings_buffer: >-
-      {{ php_ini_opcache_interned_strings_buffer
-      if php_ini_opcache_interned_strings_buffer is defined
-      and php_ini_opcache_interned_strings_buffer is number
-      and php_ini_opcache_interned_strings_buffer > 0
-      else 16 }}
-    php_ini_opcache_log_verbosity_level: >-
-      {{ php_ini_opcache_log_verbosity_level
-      if php_ini_opcache_log_verbosity_level is defined
-      and php_ini_opcache_log_verbosity_level is number
-      and php_ini_opcache_log_verbosity_level >= 0
-      else 0 }}
-    php_ini_opcache_max_accelerated_files: >-
-      {{ php_ini_opcache_max_accelerated_files
-      if php_ini_opcache_max_accelerated_files is defined
-      and php_ini_opcache_max_accelerated_files is number
-      and php_ini_opcache_max_accelerated_files > 0
-      else 16536 }}
-    php_ini_opcache_memory_consumption: >-
-      {{ php_ini_opcache_memory_consumption
-      if php_ini_opcache_memory_consumption is defined
-      and php_ini_opcache_memory_consumption is number
-      and php_ini_opcache_memory_consumption > 0
-      else 512 }}
-    php_ini_opcache_revalidate_freq: >-
-      {{ php_ini_opcache_revalidate_freq
-      if php_ini_opcache_revalidate_freq is defined
-      and php_ini_opcache_revalidate_freq is number
-      and php_ini_opcache_revalidate_freq > 0
-      else 90 }}
-    php_ini_opcache_validate_permission: >-
-      {{ 1
-      if php_ini_opcache_validate_permission is defined
-      and php_ini_opcache_validate_permission
-      else 0 }}
-    php_ini_opcache_validate_root: >-
-      {{ 1
-      if php_ini_opcache_validate_root is defined
-      and php_ini_opcache_validate_root
-      else 0 }}
-    php_ini_opcache_validate_timestamps: >-
-      {{ 1
-      if php_ini_opcache_validate_timestamps is defined
-      and php_ini_opcache_validate_timestamps
-      else 0 }}
-    php_ini_zlib_output_compression: >-
-      {{ "On"
-      if php_ini_zlib_output_compression is defined
-      and php_ini_zlib_output_compression
-      else "Off" }}
-    php_ini_zlib_output_compression_level: >-
-      {{ php_ini_user_ini_cache_ttl
-      if php_ini_user_ini_cache_ttl is defined
-      and php_ini_user_ini_cache_ttl is number
-      and php_ini_user_ini_cache_ttl >= 0
-      and php_ini_user_ini_cache_ttl <= 9
-      else 9 }}
+- name: Check required PHP variables (integers)
+  fail:
+    msg: |
+      Invalid value for variable for '{{ item }}': {{ lookup('vars', item) }}
+
+      Supported types  : Integer
+      Supported values : A number between 0-65535
+  when: >-
+    lookup('vars', item)|int < 0
+    or lookup('vars', item)|int > 65535
+  with_items: "{{ php_required_ints }}"
+
+- name: Check required PHP variables (php_packages)
+  fail:
+    msg: |
+      Invalid value for variable for 'php_packages': {{ php_packages }}
+
+      Supported types  : List, string
+      Supported values : Any non-null list or string
+  when: >-
+    php_packages is not iterable
+    or php_packages == 0
 
 - name: Set and sanitize dependent RedHat vars
   set_fact:
@@ -220,13 +96,17 @@
     msg: |
       Invalid value for variable 'systemd_restart_setting': '{{ systemd_restart_setting }}'
 
-      'systemd_restart_setting' must be one of the following:
-      no, on-success, on-failure, on-abnormal, on-watchdog, on-abort, always.
+      Supported types  : String
+      Supported values : "no", "on-success", "on-failure", "on-abnormal",
+                         "on-watchdog", "on-abort", "always"
   failed_when: >-
-    (systemd_restart_setting not in
+    systemd_restart_setting not in
     ['no', 'on-success', 'on-failure', 'on-abnormal',
     'on-watchdog', 'on-abort', 'always']
     or systemd_restart_setting is not string
-    or systemd_restart_setting == 0)
-    and (php_systemd_restart
-    or systemd_restart)
+    or systemd_restart_setting == 0
+  when: >-
+    (php_systemd_restart is defined
+    and php_systemd_restart)
+    or (systemd_restart is defined
+    and systemd_restart)

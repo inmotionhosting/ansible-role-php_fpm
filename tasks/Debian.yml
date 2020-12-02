@@ -76,10 +76,6 @@
 - name: (Debian) Set and sanitize PHP facts
   set_fact:
     php_config_ini_path: /etc/php/{{ php_version }}/fpm/php.ini
-    php_config_path: /etc/php/{{ php_version }}/apache2/conf.d
-    php_config_site_path: /etc/php/{{ php_version }}/apache2/sites-enabled
-
-    php_fpm_config_path: /etc/php/{{ php_version }}/fpm/conf.d
     php_fpm_config_pool_path: /etc/php/{{ php_version }}/fpm/pool.d
     php_fpm_daemon: php{{ php_version }}-fpm
     php_fpm_site_errorlog: /var/log/php{{ php_version }}-fpm-{{ system_user }}-error.log

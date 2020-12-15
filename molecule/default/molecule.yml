@@ -6,8 +6,8 @@ driver:
   name: docker
 
 platforms:
-  - name: "molecule-ansible-role-php-fpm-${MOLECULE_DISTRO:-centos-7}"
-    image: "inmotionhosting/molecule-images:${MOLECULE_DISTRO:-centos-7}"
+  - name: "molecule-ansible-role-php-fpm-${MOLECULE_DISTRO:-debian-9}"
+    image: "inmotionhosting/molecule-images:${MOLECULE_DISTRO:-debian-9}"
     command: ""
     pre_build_image: true
     privileged: true

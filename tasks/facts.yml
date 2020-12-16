@@ -18,6 +18,7 @@
       - php_version
       - php_version_flat
       - php_config_ini_path
+      - php_fpm_config_path
       - php_fpm_daemon
       - php_ini_memory_limit
       - php_ini_post_max_size
@@ -31,6 +32,7 @@
       - php_fpm_site_errorlog
       - php_fpm_slowlog
     php_required_ints:
+      - php_ini_rlimit_files
       - php_ini_max_execution_time
       - php_ini_max_input_vars
       - php_ini_user_ini_cache_ttl

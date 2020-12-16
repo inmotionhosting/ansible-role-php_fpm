@@ -7,6 +7,7 @@ php_version: "7.3"
 php_version_flat: '{{ php_version | replace(".", "") }}'
 
 php_config_ini_path: /etc/php.ini
+php_fpm_config_path: /etc/php-fpm.conf
 
 php_fpm_config_pool_path: /etc/php-fpm.d
 php_fpm_daemon: php-fpm
@@ -60,6 +61,7 @@ php_conf_soap_wsdl_cache_dir: /var/lib/php/wsdlcache
 #
 
 php_ini_allow_url_fopen: true
+php_ini_rlimit_files: 16384
 php_ini_max_execution_time: 60
 php_ini_max_input_vars: 6200
 php_ini_memory_limit: 512M

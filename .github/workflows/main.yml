@@ -9,10 +9,14 @@ on:
 jobs:
   setup:
     runs-on: self-hosted
+
     strategy:
       fail-fast: false
       matrix:
         molecule_distro: [ centos-7, centos-8, debian-9, debian-10, ubuntu-18.04, ubuntu-20.04 ]
+
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v2
 

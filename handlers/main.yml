@@ -1,5 +1,4 @@
-# handlers/main.yml
-
+---
 - name: restart php-fpm
   systemd:
     daemon_reload: yes

@@ -1,0 +1,94 @@
+---
+- name: (Debian) Install required repo management packages
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gpg
+      - software-properties-common
+    cache_valid_time: "3600"
+    force_apt_get: true
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: (Debian) Add sury.org repo signing key
+  apt_key:
+    url: https://packages.sury.org/php/apt.gpg
+    state: present
+  when: ansible_distribution == "Debian"
+
+- name: (Debian) Add sury.org PHP repo
+  apt_repository:
+    repo: >-
+      deb https://packages.sury.org/php/
+      {{ ansible_distribution_release.split(" ")[0]|lower }} main
+    state: present
+  when: ansible_distribution == "Debian"
+
+- name: (Ubuntu) Add sury.org PHP repo
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: (Debian) Update APT cache
+  apt:
+    force_apt_get: true
+    cache_valid_time: "3600"
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: (RedHat) Install required repo management packages
+  package:
+    name:
+      - epel-release
+      - yum-utils
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: (RedHat 7) Add Remi GPG key
+  rpm_key:
+    state: present
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+- name: (RedHat 8) Add Remi GPG key
+  rpm_key:
+    state: present
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi2018
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "8"
+
+- name: (RedHat) Install Remi repo
+  package:
+    name: >-
+      https://rpms.remirepo.net/enterprise/remi-release-
+      {{- ansible_distribution_major_version }}.rpm
+    state: present
+  when: ansible_os_family == "RedHat"
+
+# TODO: Find a better way to enable a repo prior to installing packages
+# TODO: Idempotence is broken on this task. Anything we can hook onto?
+- name: (RedHat 7) Enable Remi repo
+  raw: >-
+    yum-config-manager --enable remi-php{{ php_version_flat }}
+  changed_when: result.rc > 0
+  register: result
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "7"
+
+# TODO: Find a better way to enable a repo prior to installing packages
+- name: (RedHat 8) Enable Remi repo
+  raw: >-
+    dnf module enable -y php:remi-{{ php_version }}
+  changed_when: "'Nothing to do.' not in result.stdout"
+  register: result
+  when:
+    - ansible_os_family == "RedHat"
+    - ansible_distribution_major_version == "8"

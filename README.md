@@ -5,17 +5,19 @@
 Modular Ansible Role for deploying and configuring PHP-FPM
 
 ## Requirements
+This Ansible role supports the two latest stable releases of specific
+server-focused Linux distributions and aims to follow their deprecation
+policies. Additionally we will focus on supporting the latest two stable
+releases of each, which at the time of writing are as follows:
 
-* CentOS 7.x or later
-* Debian 9 or later
-* Ubuntu 16.04 LTS or later
+* CentOS 7, 8
+* Debian 9, 10
+* Ubuntu 18.04, 20.04
 
 ## Dependencies
-
 None.
 
 ## Role Variables
-
 Available variables are listed below with their default values (you can also see `defaults/main.yml`)
 
 | Variable | Description |
@@ -63,7 +65,6 @@ Available variables are listed below with their default values (you can also see
 | php_ini_zlib_output_compression_level | Default: `9`
 
 ## Example Playbook
-
 ```yaml
 - hosts: www
   roles:
@@ -71,9 +72,7 @@ Available variables are listed below with their default values (you can also see
 ```
 
 ## License
-
 GPLv3
 
 ## Author Information
-
 [InMotion Hosting](https://inmotionhosting.com)

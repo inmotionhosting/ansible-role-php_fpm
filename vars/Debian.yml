@@ -1,28 +1,35 @@
 ---
+php_config_ini_path: /etc/php/{{ php_version }}/fpm/php.ini
+php_fpm_config_path: /etc/php/{{ php_version }}/fpm/php-fpm.conf
+php_fpm_config_pool_path: /etc/php/{{ php_version }}/fpm/pool.d
+php_fpm_daemon: php{{ php_version }}-fpm
+php_fpm_site_errorlog: /var/log/php{{ php_version }}-fpm-{{ system_user }}-error.log
+php_fpm_slowlog: /var/log/php{{ php_version }}-fpm-slow.log
+php_fpm_socket_path: /var/run/php/{{ system_user }}.sock
+
 php_packages:
   - imagemagick
   - libmcrypt-dev
-  - php
-  - php-bcmath
-  - php-cli
-  - php-curl
-  - php-dba
-  - php-dev
-  - php-enchant
-  - php-fpm
-  - php-gd
-  - php-gmp
-  - php-imagick
-  - php-intl
-  - php-ldap
-  - php-mbstring
-  - php-mysqlnd
-  - php-opcache
-  - php-pear
-  - php-pgsql
-  - php-pspell
-  - php-redis
-  - php-soap
-  - php-tidy
-  - php-xml
-  - php-zip
+  - php{{ php_version }}
+  - php{{ php_version }}-bcmath
+  - php{{ php_version }}-cli
+  - php{{ php_version }}-curl
+  - php{{ php_version }}-dba
+  - php{{ php_version }}-dev
+  - php{{ php_version }}-enchant
+  - php{{ php_version }}-fpm
+  - php{{ php_version }}-gd
+  - php{{ php_version }}-gmp
+  - php{{ php_version }}-imagick
+  - php{{ php_version }}-intl
+  - php{{ php_version }}-ldap
+  - php{{ php_version }}-mbstring
+  - php{{ php_version }}-mysqlnd
+  - php{{ php_version }}-opcache
+  - php{{ php_version }}-pgsql
+  - php{{ php_version }}-pspell
+  - php{{ php_version }}-redis
+  - php{{ php_version }}-soap
+  - php{{ php_version }}-tidy
+  - php{{ php_version }}-xml
+  - php{{ php_version }}-zip

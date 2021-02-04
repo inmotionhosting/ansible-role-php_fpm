@@ -3,15 +3,6 @@
   include_vars: "Debian.yml"
   when: ansible_os_family == "Debian"
 
-- name: Include LTS vars
-  include_vars: "Debian-LTS.yml"
-  when: >-
-    (ansible_distribution == 'Debian' and
-    ansible_distribution_major_version == '9') or
-    (ansible_distribution == 'Ubuntu' and
-    (ansible_distribution_version == '16.04' or
-    ansible_distribution_version == '18.04'))
-
 - name: Set lists of required variables
   set_fact:
     php_required_strings:

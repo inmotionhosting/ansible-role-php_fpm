@@ -1,12 +1,12 @@
 name: Ansible-Role-PHP_FPM CI Testing
 
-on: 
+on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-jobs: 
+jobs:
   setup:
     runs-on: self-hosted
     steps:
@@ -19,6 +19,7 @@ jobs:
         run: pip install -r requirements.txt
   test:
     runs-on: self-hosted
+    needs: setup
     strategy:
       fail-fast: false
       matrix:

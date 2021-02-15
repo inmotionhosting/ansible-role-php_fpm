@@ -1,4 +1,4 @@
-name: Ansible-Role-PHP_FPM CI Testing
+name: Ansible Molecule Pipeline
 
 on:
   push:
@@ -7,28 +7,23 @@ on:
     branches: [ master ]
 
 jobs:
-  setup:
-    runs-on: self-hosted
-
+  test:
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        molecule_distro: [ centos-7, centos-8, debian-9, debian-10, ubuntu-18.04, ubuntu-20.04 ]
-
-    timeout-minutes: 10
-
+        molecule_distro:
+          - centos-7
+          - centos-8
+          - debian-9
+          - debian-10
+          - ubuntu-18.04
+          - ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-
-      - name: Setup Python3
-        uses: actions/setup-python@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-      - name: Pip install Repo Requirements
-        run: pip install -r requirements.txt
-
-      - name: Molecule Test
-        run: molecule test
+      - run: pip install -r requirements.txt
+      - run: molecule test
         env:
           MOLECULE_DISTRO: ${{ matrix.molecule_distro }}

@@ -11,7 +11,7 @@ policies. Additionally we will focus on supporting the latest two stable
 releases of each, which at the time of writing are as follows:
 
 * CentOS 7, 8
-* Debian 9, 10
+* Debian 10, 11
 * Ubuntu 18.04, 20.04
 
 ## Dependencies

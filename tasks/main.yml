@@ -2,8 +2,8 @@
 - name: Set and sanitize facts
   include_tasks: facts.yml
 
-- name: Include repo setup
-  include_tasks: repo.yml
+- name: Setup package repositories
+  include_tasks: "packages/{{ ansible_os_family|lower }}.yml"
 
 - name: Install PHP packages
   package:
@@ -49,9 +49,8 @@
 - name: Include systemd restart configuration
   include: systemd.yml
   when: >-
-    ( php_systemd_restart|default(False)
-    or systemd_restart|default(False) )
-    and systemd_restart_setting is defined
+    - php_systemd_restart|default(false) or systemd_restart|default(false)
+    - systemd_restart_setting is defined
 
 - name: Start and enable php-fpm service
   service:

@@ -7,29 +7,46 @@ php_fpm_site_errorlog: /var/log/php{{ php_version }}-fpm-{{ system_user }}-error
 php_fpm_slowlog: /var/log/php{{ php_version }}-fpm-slow.log
 php_fpm_socket_path: /var/run/php/{{ system_user }}.sock
 
+# FIXME: Debian is missing quite a few php packages
 php_packages:
+  - ghostscript
   - imagemagick
   - libmcrypt-dev
-  - php{{ php_version }}
   - php{{ php_version }}-bcmath
   - php{{ php_version }}-cli
   - php{{ php_version }}-curl
   - php{{ php_version }}-dba
   - php{{ php_version }}-dev
+  - php{{ php_version }}-dom
   - php{{ php_version }}-enchant
+  - php{{ php_version }}-exif
+  # - php{{ php_version }}-filter
+  - php{{ php_version }}-fileinfo
   - php{{ php_version }}-fpm
+  - php{{ php_version }}-ftp
   - php{{ php_version }}-gd
   - php{{ php_version }}-gmp
+  # - php{{ php_version }}-hash
+  - php{{ php_version }}-iconv
+  - php{{ php_version }}-imap
   - php{{ php_version }}-imagick
   - php{{ php_version }}-intl
+  # - php{{ php_version }}-json
   - php{{ php_version }}-ldap
   - php{{ php_version }}-mbstring
-  - php{{ php_version }}-mysqlnd
+  - php{{ php_version }}-mcrypt
+  - php{{ php_version }}-mysql
   - php{{ php_version }}-opcache
+  # - php{{ php_version }}-openssl
   - php{{ php_version }}-pgsql
+  # - php{{ php_version }}-process
   - php{{ php_version }}-pspell
   - php{{ php_version }}-redis
   - php{{ php_version }}-soap
+  - php{{ php_version }}-sockets
+  # - php{{ php_version }}-sodium
+  - php{{ php_version }}-ssh2
   - php{{ php_version }}-tidy
   - php{{ php_version }}-xml
   - php{{ php_version }}-zip
+  # - php{{ php_version }}-zlib

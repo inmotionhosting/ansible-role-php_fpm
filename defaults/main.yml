@@ -1,48 +1,58 @@
 ---
-php_version: "7.4"
+php_version: "8.0"
 php_version_flat: '{{ php_version | replace(".", "") }}'
 
 php_config_ini_path: /etc/php.ini
 php_fpm_config_path: /etc/php-fpm.conf
-
 php_fpm_config_pool_path: /etc/php-fpm.d
 php_fpm_daemon: php-fpm
 php_fpm_site_errorlog: /var/log/php-fpm/{{ system_user }}-error.log
 php_fpm_slowlog: /var/log/php-fpm/{{ system_user }}-slow.log
 php_fpm_socket_path: /var/run/php-fpm/{{ system_user }}.sock
-
 php_systemd_restart: false
 systemd_restart_setting: on-failure
 
 php_packages:
   - ImageMagick
-  - php
+  - ghostscript
   - php-bcmath
   - php-cli
   - php-curl
   - php-dba
+  - php-devel
+  - php-dom
   - php-enchant
+  - php-exif
+  - php-filter
   - php-fileinfo
   - php-fpm
+  - php-ftp
   - php-gd
   - php-gmp
+  - php-hash
+  - php-iconv
+  - php-imagick
+  - php-imap
   - php-intl
+  - php-json
   - php-ldap
   - php-mbstring
   - php-mcrypt
-  - php-mysqlnd
+  - php-mysql
   - php-opcache
-  - php-pdo_mysql
-  - php-pecl-imagick
-  - php-pecl-redis5
-  - php-pecl-zip
+  - php-openssl
   - php-pgsql
   - php-process
   - php-pspell
+  - php-redis
+  - php-ssh2
   - php-soap
+  - php-sockets
+  - php-sodium
   - php-tidy
   - php-xml
   - php-zip
+  - php-zlib
 
 #
 # php.conf

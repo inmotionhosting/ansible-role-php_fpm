@@ -1,20 +1,4 @@
 ---
-- name: (Debian) Install python-apt package
-  package:
-    name: python3-apt
-    state: present
-  when:
-    - ansible_python_version is version('3.0', '>=')
-    - ansible_os_family == "Debian"
-
-- name: (Debian) Install python-apt package
-  package:
-    name: python-apt
-    state: present
-  when:
-    - ansible_python_version is version('3.0', '<')
-    - ansible_os_family == "Debian"
-
 - name: Gather package facts
   package_facts:
     manager: auto
@@ -35,5 +19,5 @@
     dest: /etc/systemd/system/{{ php_fpm_daemon }}.service.d/restart.conf
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
   notify: restart php-fpm

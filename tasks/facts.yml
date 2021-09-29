@@ -1,7 +1,7 @@
 ---
 - name: Include Debian vars
-  include_vars: "Debian.yml"
-  when: ansible_os_family == "Debian"
+  include_vars: "debian.yml"
+  when: ansible_os_family|lower == "debian"
 
 - name: Set lists of required variables
   set_fact:
@@ -74,14 +74,14 @@
   set_fact:
     apache_config_path: /etc/httpd/conf.d
   when:
-    - ansible_os_family == "RedHat"
+    - ansible_os_family|lower == "redhat"
     - apache_config_path is undefined
 
 - name: Set and sanitize dependent Debian vars
   set_fact:
     apache_config_path: /etc/apache2/conf-enabled
   when:
-    - ansible_os_family == "Debian"
+    - ansible_os_family|lower == "debian"
     - apache_config_path is undefined
 
 - name: Check variable 'systemd_restart_setting'

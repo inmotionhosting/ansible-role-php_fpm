@@ -15,6 +15,14 @@
     path: /var/run/php
     state: directory
 
+- name: Ensure PHP session directory permissions
+  file:
+    path: /var/lib/php/session
+    state: directory
+    owner: root
+    group: root
+    mode: "1733"
+
 - name: Configure php.ini
   template:
     src: etc/php.ini.j2

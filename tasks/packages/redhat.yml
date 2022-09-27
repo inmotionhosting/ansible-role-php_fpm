@@ -25,6 +25,24 @@
 
 # FIXME: Find a better way to enable a repo prior to installing packages
 # FIXME: Idempotence is broken on this task. Anything we can hook onto?
+- name: (RedHat) Disable current Remi PHP repository (if version changing)
+  raw: "{{ command }}{{ target }}"
+  changed_when: result.rc > 0
+  register: result
+  vars:
+    command: >-
+      {{ "yum-config-manager --disable remi-php" if version|int == 7
+      else "dnf module enable -y php:remi-" }}
+    target: >-
+      {{ php_version_installed_flat if version|int == 7
+      else php_version_installed }}
+    version: "{{ ansible_distribution_major_version }}"
+  when:
+    - php_version_switch|default(false)
+    - php_version_switch is defined
+
+# FIXME: Find a better way to enable a repo prior to installing packages
+# FIXME: Idempotence is broken on this task. Anything we can hook onto?
 - name: (RedHat) Enable Remi PHP repository
   raw: "{{ command }}{{ target }}"
   changed_when: result.rc > 0

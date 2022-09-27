@@ -5,6 +5,14 @@
 - name: Setup package repositories
   include_tasks: "packages/{{ ansible_os_family|lower }}.yml"
 
+- name: Remove PHP packages (if version changing)
+  package:
+    name: "{{ php_packages }}"
+    state: absent
+  when:
+    - php_version_switch is defined
+    - php_version_switch
+
 - name: Install PHP packages
   package:
     name: "{{ php_packages }}"

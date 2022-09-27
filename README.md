@@ -29,7 +29,7 @@ Available variables are listed below with their default values (you can also see
 | php_fpm_slowlog | Default: `/var/log/php-fpm/{{ system_user }}-slow.log`
 | php_fpm_socket_path | Default: `/var/run/php-fpm/{{ system_user }}.sock`
 | php_packages | The list of PHP packages to install.
-| php_version | The discovered PHP version.
+| php_version | The PHP version to be used.
 | php_version_flat | Default: `{{ php_version \| replace(".", "") }}`
 
 ### php.conf

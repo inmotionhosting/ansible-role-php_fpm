@@ -2,7 +2,7 @@
 ; {{ ansible_managed }}
 
 [core]
-allow_url_fopen = {{ php_ini_allow_url_fopen }}
+allow_url_fopen = {{ 'on' if php_ini_allow_url_fopen else 'off' }}
 max_execution_time = {{ php_ini_max_execution_time }}
 max_input_vars = {{ php_ini_max_input_vars }}
 memory_limit = {{ php_ini_memory_limit }}
@@ -12,18 +12,18 @@ user_ini.cache_ttl = {{ php_ini_user_ini_cache_ttl }}
 user_ini.filename = {{ php_ini_user_ini_filename }}
 
 [opcache]
-opcache.enable = {{ php_ini_opcache_enable }}
-opcache.enable_cli = {{ php_ini_opcache_enable_cli }}
+opcache.enable = {{ 'on' if php_ini_opcache_enable else 'off' }}
+opcache.enable_cli = {{ 'on' if php_ini_opcache_enable_cli else 'off' }}
 opcache.force_restart_timeout = {{ php_ini_opcache_force_restart_timeout }}
 opcache.interned_strings_buffer = {{ php_ini_opcache_interned_strings_buffer }}
 opcache.log_verbosity_level = {{ php_ini_opcache_log_verbosity_level }}
 opcache.max_accelerated_files = {{ php_ini_opcache_max_accelerated_files }}
 opcache.memory_consumption = {{ php_ini_opcache_memory_consumption }}
 opcache.revalidate_freq = {{ php_ini_opcache_revalidate_freq }}
-opcache.validate_permission = {{ php_ini_opcache_validate_permission }}
-opcache.validate_root = {{ php_ini_opcache_validate_root }}
-opcache.validate_timestamps = {{ php_ini_opcache_validate_timestamps }}
+opcache.validate_permission = {{ 'on' if php_ini_opcache_validate_permission else 'off' }}
+opcache.validate_root = {{ 'on' if php_ini_opcache_validate_root else 'off' }}
+opcache.validate_timestamps = {{ 'on' if php_ini_opcache_validate_timestamps else 'off' }}
 
 [zlib]
-zlib.output_compression = {{ php_ini_zlib_output_compression }}
+zlib.output_compression = {{ 'on' if php_ini_zlib_output_compression else 'off' }}
 zlib.output_compression_level = {{ php_ini_zlib_output_compression_level }}

@@ -71,8 +71,8 @@ php_ini_rlimit_files: 16384
 php_ini_max_execution_time: 60
 php_ini_max_input_vars: 6200
 php_ini_memory_limit: 512M
-php_ini_post_max_size: 128M
-php_ini_upload_max_filesize: 128M
+php_ini_post_max_size: 1024M
+php_ini_upload_max_filesize: 1024M
 php_ini_user_ini_cache_ttl: 180
 php_ini_user_ini_filename: php.ini
 php_ini_opcache_enable: true

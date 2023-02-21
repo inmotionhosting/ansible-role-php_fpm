@@ -65,8 +65,9 @@
 - name: Include systemd restart configuration
   include: systemd.yml
   when: >-
-    - php_systemd_restart|default(false) or systemd_restart|default(false)
-    - systemd_restart_setting is defined
+    ( php_systemd_restart|default(False)
+    or systemd_restart|default(False) )
+    and systemd_restart_setting is defined
 
 - name: Start and enable php-fpm service
   service:

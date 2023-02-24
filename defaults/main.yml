@@ -1,5 +1,5 @@
 ---
-php_version: "8.0"
+php_version: "8.1"
 php_version_flat: '{{ php_version | replace(".", "") }}'
 
 php_config_ini_path: /etc/php.ini

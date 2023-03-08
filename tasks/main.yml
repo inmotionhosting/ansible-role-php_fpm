@@ -18,6 +18,17 @@
     name: "{{ php_packages }}"
     state: present
 
+- name: Remove ImageMagick if existing
+  package:
+    name: "ImageMagick"
+    state: absent
+
+- name: Install ImageMagick7 and libraries
+  package:
+    name: "ImageMagick7,ImageMagick7-libs"
+    state: present
+    enablerepo: "remi"
+
 - name: Ensure directories exist
   file:
     path: /var/run/php

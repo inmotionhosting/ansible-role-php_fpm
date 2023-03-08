@@ -13,9 +13,6 @@ php_systemd_restart: false
 systemd_restart_setting: on-failure
 
 php_packages:
-  - ImageMagick
-  - ImageMagick7
-  - ImageMagick7-libs
   - ghostscript
   - php-bcmath
   - php-cli

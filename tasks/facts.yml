@@ -1,4 +1,10 @@
 ---
+- name: Ensure we have package facts
+  ansible.builtin.package_facts:
+    manager: auto
+  when:
+    - ansible_facts.packages is not defined
+
 - name: Set installed PHP version
   vars:
     package: php-fpm

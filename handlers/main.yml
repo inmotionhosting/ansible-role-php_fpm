@@ -1,6 +1,6 @@
 ---
-- name: restart php-fpm
-  systemd:
-    daemon_reload: yes
+- name: Restart php-fpm
+  ansible.builtin.systemd:
+    daemon_reload: true
     name: "{{ php_fpm_daemon }}"
     state: restarted

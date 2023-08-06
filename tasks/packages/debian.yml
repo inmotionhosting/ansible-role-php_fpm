@@ -1,38 +1,39 @@
 ---
 - name: (Debian) Install required repo management packages
-  apt:
+  ansible.builtin.apt:
     name:
       - apt-transport-https
       - ca-certificates
       - gpg
       - python3-apt
       - software-properties-common
+      - gpg-agent
     cache_valid_time: "3600"
     force_apt_get: true
     state: present
     update_cache: true
 
 - name: (Debian) Add sury.org repo signing key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://packages.sury.org/php/apt.gpg
     state: present
 
 - name: (Debian) Add sury.org PHP repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: >-
       deb https://packages.sury.org/php/
-      {{ ansible_distribution_release.split(" ")[0]|lower }} main
+      {{ ansible_distribution_release.split(" ")[0] | lower }} main
     state: present
-  when: ansible_distribution|lower == "debian"
+  when: ansible_distribution | lower == "debian"
 
 - name: (Ubuntu) Add sury.org PHP repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: ppa:ondrej/php
     state: present
-  when: ansible_distribution|lower == "ubuntu"
+  when: ansible_distribution | lower == "ubuntu"
 
 - name: (Debian) Update APT cache
-  apt:
+  ansible.builtin.apt:
     force_apt_get: true
     cache_valid_time: "3600"
     state: present

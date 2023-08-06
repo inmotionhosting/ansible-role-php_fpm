@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm.png?branch=master)](https://travis-ci.org/inmotionhosting/ansible-role-php_fpm) [![GPL-3.0 License](https://img.shields.io/github/license/inmotionhosting/ansible-role-php_fpm.svg?color=blue)](https://github.com/inmotionhosting/ansible-role-php_fpm/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/inmotionhosting/ansible-role-php_fpm.svg)](https://github.com/inmotionhosting/ansible-role-php_fpm/stargazers)
+![Ansible Molecule Pipeline](https://github.com/inmotionhosting/ansible-role-php_fpm/actions/workflows/main.yml/badge.svg) [![GPL-3.0 License](https://img.shields.io/github/license/inmotionhosting/ansible-role-php_fpm.svg?color=blue)](https://github.com/inmotionhosting/ansible-role-php_fpm/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/inmotionhosting/ansible-role-php_fpm.svg)](https://github.com/inmotionhosting/ansible-role-php_fpm/stargazers)
 
 # Ansible Role: PHP-FPM
 
@@ -10,9 +10,11 @@ server-focused Linux distributions and aims to follow their deprecation
 policies. Additionally we will focus on supporting the latest two stable
 releases of each, which at the time of writing are as follows:
 
-* CentOS 7, 8
-* Debian 10, 11
-* Ubuntu 18.04, 20.04
+* CentOS 7.x or later
+* Debian 10 or later
+* Ubuntu 20.04 LTS or later
+* AlmaLinux 8.x or later
+* RockyLinux 8.x or later
 
 ## Dependencies
 None.
@@ -26,7 +28,6 @@ Available variables are listed below with their default values (you can also see
 | php_fpm_config_pool_path | Default: `/etc/php-fpm.d`
 | php_fpm_daemon | Default: `php-fpm`
 | php_request_slowlog_timeout | Default: `0`
-| php_fpm_site_errorlog | Default: `/home/{{ system_user }}/logs/{{ site_domain | replace (".", "_") }}.php.error.log`
 | php_fpm_slowlog | Default: `/var/log/php-fpm/{{ system_user }}-slow.log`
 | php_fpm_socket_path | Default: `/var/run/php-fpm/{{ system_user }}.sock`
 | php_packages | The list of PHP packages to install.

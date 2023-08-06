@@ -1,12 +1,12 @@
 ---
 - name: Set and sanitize facts
-  include_tasks: facts.yml
+  ansible.builtin.include_tasks: facts.yml
 
 - name: Setup package repositories
-  include_tasks: "packages/{{ ansible_os_family|lower }}.yml"
+  ansible.builtin.include_tasks: "packages/{{ ansible_os_family | lower }}.yml"
 
 - name: Remove PHP packages (if version changing)
-  package:
+  ansible.builtin.package:
     name: "{{ php_packages }}"
     state: absent
   when:
@@ -14,17 +14,20 @@
     - php_version_switch
 
 - name: Install PHP packages
-  package:
+  ansible.builtin.package:
     name: "{{ php_packages }}"
     state: present
 
 - name: Ensure directories exist
-  file:
+  ansible.builtin.file:
     path: /var/run/php
     state: directory
+    owner: root
+    group: root
+    mode: "0750"
 
 - name: Ensure PHP session directory permissions
-  file:
+  ansible.builtin.file:
     path: /var/lib/php/session
     state: directory
     owner: root
@@ -32,45 +35,45 @@
     mode: "1733"
 
 - name: Configure php.ini
-  template:
+  ansible.builtin.template:
     src: etc/php.ini.j2
     dest: "{{ php_config_ini_path }}"
     owner: root
     group: root
     mode: "0644"
-  notify: restart php-fpm
+  notify: Restart php-fpm
 
 - name: Configure rlimit_files in php-fpm.conf
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ php_fpm_config_path }}"
     regexp: "^;rlimit_files.*"
     line: rlimit_files = {{ php_ini_rlimit_files }}
-  notify: restart php-fpm
+  notify: Restart php-fpm
 
 - name: Check if Apache dirs are present
-  stat:
+  ansible.builtin.stat:
     path: "{{ apache_config_path }}"
   register: apache
 
 - name: Configure Apache PHP settings
-  template:
+  ansible.builtin.template:
     src: etc/httpd/conf.d/php.conf.j2
     dest: "{{ apache_config_path }}/php.conf"
     owner: root
     group: root
     mode: "0644"
-  notify: restart php-fpm
+  notify: Restart php-fpm
   when: apache.stat.exists
 
 - name: Include systemd restart configuration
-  include: systemd.yml
+  ansible.builtin.include_tasks: systemd.yml
   when: >-
     ( php_systemd_restart|default(False)
     or systemd_restart|default(False) )
     and systemd_restart_setting is defined
 
 - name: Start and enable php-fpm service
-  service:
+  ansible.builtin.service:
     name: "{{ php_fpm_daemon }}"
     state: started
     enabled: true

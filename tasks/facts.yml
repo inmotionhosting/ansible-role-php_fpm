@@ -8,18 +8,18 @@
 - name: Set installed PHP version
   vars:
     package: php-fpm
-  set_fact:
+  ansible.builtin.set_fact:
     php_version_installed: "{{ ansible_facts.packages[package][0].version.split('.')[0:2] | join('.') }}"
     php_version_installed_flat: "{{ ansible_facts.packages[package][0].version.split('.')[0:2] | join('.') | replace('.', '') }}"
   when:
     - package in ansible_facts.packages.keys()
 
 - name: Include Debian vars
-  include_vars: "debian.yml"
+  ansible.builtin.include_vars: "debian.yml"
   when: ansible_os_family|lower == "debian"
 
 - name: Set lists of required variables
-  set_fact:
+  ansible.builtin.set_fact:
     php_required_strings:
       - php_version
       - php_version_flat
@@ -35,7 +35,6 @@
       - php_conf_soap_wsdl_cache_dir
       - php_fpm_config_pool_path
       - php_fpm_socket_path
-      - php_fpm_site_errorlog
       - php_fpm_slowlog
     php_required_ints:
       - php_ini_rlimit_files
@@ -51,7 +50,7 @@
       - php_ini_zlib_output_compression_level
 
 - name: Check required PHP variables (strings)
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for variable for '{{ item }}': {{ lookup('vars', item) }}
 
@@ -63,7 +62,7 @@
   with_items: "{{ php_required_strings }}"
 
 - name: Check required PHP variables (integers)
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for variable for '{{ item }}': {{ lookup('vars', item) }}
 
@@ -75,7 +74,7 @@
   with_items: "{{ php_required_ints }}"
 
 - name: Check required PHP variables (php_packages)
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for variable for 'php_packages': {{ php_packages }}
 
@@ -86,21 +85,21 @@
     or php_packages == 0
 
 - name: Set and sanitize dependent RedHat vars
-  set_fact:
+  ansible.builtin.set_fact:
     apache_config_path: /etc/httpd/conf.d
   when:
     - ansible_os_family|lower == "redhat"
     - apache_config_path is undefined
 
 - name: Set and sanitize dependent Debian vars
-  set_fact:
+  ansible.builtin.set_fact:
     apache_config_path: /etc/apache2/conf-enabled
   when:
     - ansible_os_family|lower == "debian"
     - apache_config_path is undefined
 
 - name: Check variable 'systemd_restart_setting'
-  fail:
+  ansible.builtin.fail:
     msg: |
       Invalid value for variable 'systemd_restart_setting': '{{ systemd_restart_setting }}'
 
@@ -120,13 +119,13 @@
     and systemd_restart)
 
 - name: Set PHP switcher
-  set_fact:
+  ansible.builtin.set_fact:
     php_version_switch: true
   when: 
     - php_version_installed is defined
     - php_version != php_version_installed
 
 - name: Remove php-sodium when PHP 5.6
-  set_fact:
+  ansible.builtin.set_fact:
     php_packages: "{{ php_packages | reject('search', 'php-sodium') | list }}"
   when: php_version == '5.6'

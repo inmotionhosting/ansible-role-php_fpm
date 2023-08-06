@@ -24,6 +24,14 @@
 
 # FIXME: Find a better way to enable a repo prior to installing packages
 # FIXME: Idempotence is broken on this task. Anything we can hook onto?
+- name: (RedHat 9) Enable CRB repository
+  ansible.builtin.raw: dnf config-manager --set-enabled crb
+  when: ansible_distribution_major_version == 9 and ansible_os_family == "RedHat"
+  changed_when: result.rc > 0
+  register: result
+
+# FIXME: Find a better way to enable a repo prior to installing packages
+# FIXME: Idempotence is broken on this task. Anything we can hook onto?
 - name: (RedHat) Disable current Remi PHP repository (if version changing)
   ansible.builtin.raw: "{{ command }}{{ target }}"
   changed_when: result.rc > 0

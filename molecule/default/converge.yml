@@ -11,5 +11,6 @@
 
   vars:
     system_user: example
+    site_domain: example.com
   roles:
     - role: ansible-role-php_fpm

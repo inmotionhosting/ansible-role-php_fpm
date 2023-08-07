@@ -28,6 +28,7 @@ Available variables are listed below with their default values (you can also see
 | php_fpm_config_pool_path | Default: `/etc/php-fpm.d`
 | php_fpm_daemon | Default: `php-fpm`
 | php_request_slowlog_timeout | Default: `0`
+| php_fpm_site_errorlog | Default: `/home/{{ system_user }}/logs/{{ site_domain | replace (".", "_") }}.php.error.log`
 | php_fpm_slowlog | Default: `/var/log/php-fpm/{{ system_user }}-slow.log`
 | php_fpm_socket_path | Default: `/var/run/php-fpm/{{ system_user }}.sock`
 | php_packages | The list of PHP packages to install.

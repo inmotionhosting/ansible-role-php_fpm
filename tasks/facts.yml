@@ -35,6 +35,7 @@
       - php_conf_soap_wsdl_cache_dir
       - php_fpm_config_pool_path
       - php_fpm_socket_path
+      - php_fpm_site_errorlog      
       - php_fpm_slowlog
     php_required_ints:
       - php_ini_rlimit_files

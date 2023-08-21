@@ -1,6 +1,6 @@
 name: Ansible Molecule Pipeline
 
-on:  # yamllint disable-line rule:truthy
+on:  
   push:
     branches: [master]
   pull_request:
@@ -34,7 +34,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install ansible molecule molecule-docker
+        run: pip install -r requirements.txt
 
       - name: Run Molecule Test
         run: molecule test
@@ -58,7 +58,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install ansible molecule molecule-docker
+        run: pip install -r requirements.txt
 
       - name: Run Molecule Test
         run: molecule test

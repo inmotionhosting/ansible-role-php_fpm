@@ -18,14 +18,6 @@
     name: "{{ php_packages }}"
     state: present
 
-- name: Ensure directories exist
-  ansible.builtin.file:
-    path: /var/run/php
-    state: directory
-    owner: root
-    group: root
-    mode: "0750"
-
 - name: Ensure PHP session directory permissions
   ansible.builtin.file:
     path: /var/lib/php/session

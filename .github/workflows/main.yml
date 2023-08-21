@@ -1,11 +1,9 @@
 name: Ansible Molecule Pipeline
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches: [master]
   pull_request:
-    branches: [master]
-  workflow_dispatch:
     branches: [master]
 
 env:
@@ -30,13 +28,13 @@ jobs:
           - image: geerlingguy/docker-rockylinux8-ansible:latest
           - image: geerlingguy/docker-rockylinux9-ansible:latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install ansible molecule molecule-docker
+        run: pip install -r requirements.txt
 
       - name: Run Molecule Test
         run: molecule test
@@ -54,13 +52,13 @@ jobs:
           - image: geerlingguy/docker-centos7-ansible:latest
             command: /usr/lib/systemd/systemd
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
       - name: Install test dependencies
-        run: pip3 install ansible molecule molecule-docker
+        run: pip install -r requirements.txt
 
       - name: Run Molecule Test
         run: molecule test

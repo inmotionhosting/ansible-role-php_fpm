@@ -18,14 +18,6 @@
     name: "{{ php_packages }}"
     state: present
 
-- name: Ensure PHP session directory permissions
-  ansible.builtin.file:
-    path: /var/lib/php/session
-    state: directory
-    owner: root
-    group: root
-    mode: "1733"
-
 - name: Configure php.ini
   ansible.builtin.template:
     src: etc/php.ini.j2

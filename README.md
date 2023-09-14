@@ -39,7 +39,7 @@ Available variables are listed below with their default values (you can also see
 | Variable | Description |
 | -------- | ----------- |
 | php_conf_session_save_handler | Default: `files`
-| php_conf_session_save_path | Default: `/var/lib/php/session`
+| php_conf_session_save_path | Default: `/home/{{ system_user }}/session`
 | php_conf_soap_wsdl_cache_dir | Default: `/var/lib/php/wsdlcache`
 
 ### php.ini

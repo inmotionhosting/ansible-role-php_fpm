@@ -59,7 +59,7 @@ php_packages:
 #
 
 php_conf_session_save_handler: files
-php_conf_session_save_path: /var/lib/php/session
+php_conf_session_save_path: /home/{{ system_user }}/session
 php_conf_soap_wsdl_cache_dir: /var/lib/php/wsdlcache
 
 #

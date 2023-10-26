@@ -24,6 +24,7 @@
       - php_version
       - php_version_flat
       - php_config_ini_path
+      - php_fpm_binary
       - php_fpm_config_path
       - php_fpm_daemon
       - php_ini_memory_limit

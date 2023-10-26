@@ -3,6 +3,7 @@ php_config_ini_path: /etc/php/{{ php_version }}/fpm/php.ini
 php_fpm_config_path: /etc/php/{{ php_version }}/fpm/php-fpm.conf
 php_fpm_config_pool_path: /etc/php/{{ php_version }}/fpm/pool.d
 php_fpm_daemon: php{{ php_version }}-fpm
+php_fpm_binary: php-fpm{{ php_version }}
 php_fpm_site_errorlog: /home/{{ system_user }}/logs/{{ site_domain | replace(".", "_") }}.php.error.log
 php_fpm_slowlog: /var/log/php{{ php_version }}-fpm-slow.log
 php_fpm_socket_path: /var/run/php/{{ system_user }}.sock

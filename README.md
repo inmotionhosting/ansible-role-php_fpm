@@ -25,6 +25,7 @@ Available variables are listed below with their default values (you can also see
 | Variable | Description |
 | -------- | ----------- |
 | php_config_ini_path | Default: `/etc/php.ini`
+| php_fpm_binary | Default: `php-fpm`. The name of the binary for the php-fpm service
 | php_fpm_config_pool_path | Default: `/etc/php-fpm.d`
 | php_fpm_daemon | Default: `php-fpm`
 | php_request_slowlog_timeout | Default: `0`

@@ -4,6 +4,7 @@
     manager: auto
   when:
     - ansible_facts.packages is not defined
+  tags: phpversion
 
 - name: Set installed PHP version
   vars:
@@ -13,6 +14,7 @@
     php_version_installed_flat: "{{ ansible_facts.packages[package][0].version.split('.')[0:2] | join('.') | replace('.', '') }}"
   when:
     - package in ansible_facts.packages.keys()
+  tags: phpversion
 
 - name: Include Debian vars
   ansible.builtin.include_vars: "debian.yml"
@@ -126,8 +128,10 @@
   when:
     - php_version_installed is defined
     - php_version != php_version_installed
+  tags: phpversion
 
 - name: Remove php-sodium when PHP 5.6
   ansible.builtin.set_fact:
     php_packages: "{{ php_packages | reject('search', 'php-sodium') | list }}"
   when: php_version == '5.6'
+  tags: phpversion

@@ -1,6 +1,7 @@
 ---
 - name: Set and sanitize facts
   ansible.builtin.include_tasks: facts.yml
+  tags: phpversion
 
 - name: Setup package repositories
   ansible.builtin.include_tasks: "packages/{{ ansible_os_family | lower }}.yml"
@@ -29,6 +30,7 @@
     group: root
     mode: "0644"
   notify: Restart php-fpm
+  tags: phpversion
 
 - name: Configure rlimit_files in php-fpm.conf
   ansible.builtin.lineinfile:

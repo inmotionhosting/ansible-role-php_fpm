@@ -4,6 +4,7 @@
 
 - name: Setup package repositories
   ansible.builtin.include_tasks: "packages/{{ ansible_os_family | lower }}.yml"
+  tags: phpversion
 
 - name: Remove PHP packages (if version changing)
   ansible.builtin.package:
@@ -12,11 +13,13 @@
   when:
     - php_version_switch is defined
     - php_version_switch
+  tags: phpversion
 
 - name: Install PHP packages
   ansible.builtin.package:
     name: "{{ php_packages }}"
     state: present
+  tags: phpversion
 
 - name: Configure php.ini
   ansible.builtin.template:
@@ -33,6 +36,7 @@
     regexp: "^;rlimit_files.*"
     line: rlimit_files = {{ php_ini_rlimit_files }}
   notify: Restart php-fpm
+  tags: phpversion
 
 - name: Check if Apache dirs are present
   ansible.builtin.stat:

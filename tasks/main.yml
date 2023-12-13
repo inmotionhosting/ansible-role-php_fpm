@@ -55,6 +55,15 @@
   notify: Restart php-fpm
   when: apache.stat.exists
 
+- name: Empty contents of php-fpm www.conf
+  ansible.builtin.copy:
+    dest: "{{ php_fpm_config_pool_path }}/www.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    content: ""
+  notify: Restart php-fpm
+
 - name: Include systemd restart configuration
   ansible.builtin.include_tasks: systemd.yml
   when: >-

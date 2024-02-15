@@ -129,9 +129,3 @@
     - php_version_installed is defined
     - php_version != php_version_installed
   tags: phpversion
-
-- name: Remove php-sodium when PHP 5.6
-  ansible.builtin.set_fact:
-    php_packages: "{{ php_packages | reject('search', 'php-sodium') | list }}"
-  when: php_version == '5.6'
-  tags: phpversion

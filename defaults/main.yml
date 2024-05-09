@@ -9,7 +9,7 @@ php_fpm_daemon: php-fpm
 php_fpm_binary: php-fpm
 php_fpm_site_errorlog: /home/{{ system_user }}/logs/{{ site_domain | replace(".", "_") }}.php.error.log
 php_fpm_slowlog: /var/log/php-fpm/{{ system_user }}-slow.log
-php_fpm_socket_path: /var/run/php-fpm/{{ system_user }}.sock
+php_fpm_socket_path: "/var/run/php-fpm/{{ system_user }}.sock"
 php_systemd_restart: false
 systemd_restart_setting: on-failure
 
@@ -69,6 +69,7 @@ php_conf_soap_wsdl_cache_dir: /var/lib/php/wsdlcache
 
 php_ini_allow_url_fopen: true
 php_ini_rlimit_files: 16384
+php_ini_expose_php: false
 php_ini_max_execution_time: 60
 php_ini_max_input_vars: 6200
 php_ini_memory_limit: 512M

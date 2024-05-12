@@ -49,6 +49,7 @@ Available variables are listed below with their default values (you can also see
 | Variable | Description |
 | -------- | ----------- |
 | php_ini_allow_url_fopen | Default: `true`
+| php_ini_expose_php | Default: `false`
 | php_ini_max_execution_time | Default: `60`
 | php_ini_max_input_vars | Default: `6200`
 | php_ini_memory_limit | Default: `512M`

@@ -3,6 +3,7 @@
 
 [core]
 allow_url_fopen = {{ 'on' if php_ini_allow_url_fopen else 'off' }}
+expose_php = {{ 'on' if php_ini_expose_php else 'off' }}
 max_execution_time = {{ php_ini_max_execution_time }}
 max_input_vars = {{ php_ini_max_input_vars }}
 memory_limit = {{ php_ini_memory_limit }}

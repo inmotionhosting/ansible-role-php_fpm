@@ -69,6 +69,7 @@ php_conf_soap_wsdl_cache_dir: /var/lib/php/wsdlcache
 
 php_ini_allow_url_fopen: true
 php_ini_rlimit_files: 16384
+php_ini_expose_php: false
 php_ini_max_execution_time: 60
 php_ini_max_input_vars: 6200
 php_ini_memory_limit: 512M

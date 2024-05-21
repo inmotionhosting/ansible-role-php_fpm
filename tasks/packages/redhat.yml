@@ -51,7 +51,7 @@
 
 # FIXME: Find a better way to reset a module when switching versions
 # FIXME: Idempotence is broken on this task. Anything we can hook onto?
-- name: (RedHat 9) Reset php dnf module
+- name: (RedHat>=8) Reset php dnf module
   ansible.builtin.raw: dnf -y module reset php
   when:
     - ansible_distribution_major_version >= "8" and ansible_os_family == "RedHat"

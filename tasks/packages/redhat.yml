@@ -49,6 +49,18 @@
     - php_version_switch is defined
   tags: phpversion
 
+# FIXME: Find a better way to reset a module when switching versions
+# FIXME: Idempotence is broken on this task. Anything we can hook onto?
+- name: (RedHat>=8) Reset php dnf module
+  ansible.builtin.raw: dnf -y module reset php
+  when:
+    - ansible_distribution_major_version >= "8" and ansible_os_family == "RedHat"
+    - php_version_switch | default(false)
+    - php_version_switch is defined
+  changed_when: result.rc > 0
+  register: result
+  tags: phpversion
+
 # FIXME: Find a better way to enable a repo prior to installing packages
 # FIXME: Idempotence is broken on this task. Anything we can hook onto?
 - name: (RedHat) Enable Remi PHP repository

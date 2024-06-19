@@ -14,7 +14,7 @@
     state: directory
     owner: root
     group: root
-    mode: "0750"
+    mode: "0755"
 
 - name: Create service file
   ansible.builtin.template:
